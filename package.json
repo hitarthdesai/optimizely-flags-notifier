@@ -9,7 +9,8 @@
   "author": "Hitarth Desai <hitarth.desai@adevinta.com>",
   "license": "ISC",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "@slack/types": "^2.11.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
