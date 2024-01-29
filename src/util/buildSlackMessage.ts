@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type KnownBlock } from "@slack/types";
 import { FlagAge } from "..";
 
@@ -7,7 +8,7 @@ export function buildSlackMessage(
 ): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
-  flags_map.forEach((flags: Array<any>, _) => {
+  flags_map.forEach((flags: any[]) => {
     if (flags === undefined || flags.length === 0) {
       blocks.push({
         type: "section",

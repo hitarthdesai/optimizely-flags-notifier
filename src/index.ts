@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getInput } from "@actions/core";
-import { getAllFlags } from "./util/getAllFlags";
 import { config } from "dotenv";
 import { buildSlackMessage } from "./util/buildSlackMessage";
+import { getAllFlags } from "./util/getAllFlags";
 import { sendSlackMessage } from "./util/sendSlackMessage";
 
 const flag_age_map = {
@@ -28,7 +29,7 @@ async function run_action(): Promise<void> {
     "";
 
   /* Get all the flags */
-  const flags: Array<any> = await getAllFlags({
+  const flags: any[] = await getAllFlags({
     optimizely_project_id,
     optimizely_auth_token,
   });
@@ -51,7 +52,7 @@ async function run_action(): Promise<void> {
   });
 
   /* Categorize flags depending on how old they are */
-  const flag_map = new Map<FlagAge, Array<any>>();
+  const flag_map = new Map<FlagAge, any[]>();
   active_flags.forEach((flag) => {
     const last_modified = new Date(flag.updated_time);
     const today = new Date();
@@ -98,4 +99,4 @@ async function run_action(): Promise<void> {
   );
 }
 
-run_action();
+void run_action();

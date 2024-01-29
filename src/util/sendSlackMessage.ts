@@ -6,7 +6,7 @@ export async function sendSlackMessage(
   slack_app_bot_token: string,
   blocks: KnownBlock[]
 ) {
-  const res = await fetch(slack_webhook_url, {
+  await fetch(slack_webhook_url, {
     method: "POST",
     body: JSON.stringify({
       channel: channel_id,
@@ -17,6 +17,4 @@ export async function sendSlackMessage(
       authorization: `Bearer ${slack_app_bot_token}`,
     },
   });
-
-  console.log(res.status);
 }
