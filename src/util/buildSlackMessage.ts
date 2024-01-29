@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type KnownBlock } from "@slack/types";
 import { FlagAge } from "..";
+import { TrimmedOptimizelyFlag } from "../types";
 
 type BuildSlackMessageInput = {
   project_id: string;
-  flags_by_age: Map<FlagAge, any>;
+  flags_by_age: Map<FlagAge, TrimmedOptimizelyFlag[]>;
 };
 
 /**
@@ -19,7 +19,7 @@ export function buildSlackMessage({
 }: BuildSlackMessageInput): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
-  flags_by_age.forEach((flags: any[]) => {
+  flags_by_age.forEach((flags) => {
     if (flags === undefined || flags.length === 0) {
       blocks.push({
         type: "section",

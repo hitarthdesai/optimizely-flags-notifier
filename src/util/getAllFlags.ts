@@ -1,5 +1,7 @@
+import { OptimizelyFlag, optimizelyFlags } from "../types";
+
 type GetAllFlagsInput = {
-  optimizely_project_id: string;
+  project_id: string;
   optimizely_auth_token: string;
 };
 
@@ -10,12 +12,12 @@ type GetAllFlagsInput = {
  * @returns List of all flags in the project
  */
 export async function getAllFlags({
-  optimizely_project_id,
+  project_id,
   optimizely_auth_token,
-}: GetAllFlagsInput) {
+}: GetAllFlagsInput): Promise<OptimizelyFlag[]> {
   try {
     const res = await fetch(
-      `https://api.optimizely.com/flags/v1/projects/${optimizely_project_id}/flags?per_page=100`,
+      `https://api.optimizely.com/flags/v1/projects/${project_id}/flags?per_page=100`,
       {
         method: "GET",
         headers: {
@@ -25,7 +27,7 @@ export async function getAllFlags({
         },
       }
     );
-    return (await res.json()).items;
+    return optimizelyFlags.parse((await res.json()).items);
   } catch (e) {
     /* eslint-disable-next-line no-console */
     console.error(e);
