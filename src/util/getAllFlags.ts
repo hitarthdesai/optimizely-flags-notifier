@@ -6,7 +6,7 @@ type GetAllFlagsInput = {
 /**
  * Uses Optimizely's REST API to fetch all flags inside the project
  *
- * @param param0 Omptimizely project ID and auth token
+ * @param param0 Optimizely project ID and auth token
  * @returns List of all flags in the project
  */
 export async function getAllFlags({

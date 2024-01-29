@@ -82,7 +82,10 @@ async function run_action(): Promise<void> {
   });
 
   /* Build the slack message from the above given map */
-  const message = buildSlackMessage(optimizely_project_id, flag_map);
+  const message = buildSlackMessage({
+    project_id: optimizely_project_id,
+    flags_by_age: flag_map,
+  });
 
   /* Send the slack message */
   const slack_webhook_url =
@@ -91,12 +94,13 @@ async function run_action(): Promise<void> {
     getInput("channel_id") || process.env.SLACK_CHANNEL_ID || "";
   const slack_app_bot_token =
     getInput("slack_app_bot_token") || process.env.SLACK_APP_BOT_TOKEN || "";
-  await sendSlackMessage(
+
+  await sendSlackMessage({
     slack_webhook_url,
     channel_id,
     slack_app_bot_token,
-    message
-  );
+    blocks: message,
+  });
 }
 
 void run_action();

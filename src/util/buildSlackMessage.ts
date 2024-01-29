@@ -2,13 +2,24 @@
 import { type KnownBlock } from "@slack/types";
 import { FlagAge } from "..";
 
-export function buildSlackMessage(
-  project_id: string,
-  flags_map: Map<FlagAge, any>
-): KnownBlock[] {
+type BuildSlackMessageInput = {
+  project_id: string;
+  flags_by_age: Map<FlagAge, any>;
+};
+
+/**
+ * Builds a Slack message from a list of flags grouped by age
+ *
+ * @param param0 Project Id and flags grouped by age
+ * @returns Slack message as blocks
+ */
+export function buildSlackMessage({
+  project_id,
+  flags_by_age,
+}: BuildSlackMessageInput): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
-  flags_map.forEach((flags: any[]) => {
+  flags_by_age.forEach((flags: any[]) => {
     if (flags === undefined || flags.length === 0) {
       blocks.push({
         type: "section",
