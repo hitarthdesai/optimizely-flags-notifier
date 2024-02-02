@@ -19,3 +19,26 @@ export const trimmedOptimizelyFlag = z.object({
 });
 
 export type TrimmedOptimizelyFlag = z.infer<typeof trimmedOptimizelyFlag>;
+
+export const flagAgeDetails = z.object({
+  time: z.number(),
+  label: z.string(),
+  flags: z.array(trimmedOptimizelyFlag),
+});
+
+export type FlagAgeDetails = z.infer<typeof flagAgeDetails>;
+
+export const flagAge = z.enum([
+  "TWO_WEEKS_OR_LESS",
+  "ONE_MONTH_OR_LESS",
+  "THREE_MONTHS_OR_LESS",
+  "SIX_MONTHS_OR_LESS",
+  "ONE_YEAR_OR_LESS",
+  "MORE_THAN_ONE_YEAR",
+]);
+
+export type FlagAge = z.infer<typeof flagAge>;
+
+export const flagAgeDetailsMap = z.record(flagAge, flagAgeDetails);
+
+export type FlagAgeDetailsMap = z.infer<typeof flagAgeDetailsMap>;

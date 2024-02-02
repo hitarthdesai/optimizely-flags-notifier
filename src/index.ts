@@ -1,24 +1,10 @@
 import { getInput } from "@actions/core";
 import { config } from "dotenv";
-import {
-  TrimmedOptimizelyFlag,
-  requiredString,
-  trimmedOptimizelyFlag,
-} from "./types";
+import { flagAgeDetailsMap } from "./constants";
+import { FlagAge, requiredString, trimmedOptimizelyFlag } from "./types";
 import { buildSlackMessage } from "./util/buildSlackMessage";
 import { getAllFlags } from "./util/getAllFlags";
 import { sendSlackMessage } from "./util/sendSlackMessage";
-
-const flag_age_map = {
-  TWO_WEEKS_OR_LESS: 60 * 60 * 24 * 14,
-  ONE_MONTH_OR_LESS: 60 * 60 * 24 * 30,
-  THREE_MONTHS_OR_LESS: 60 * 60 * 24 * 30 * 3,
-  SIX_MONTHS_OR_LESS: 60 * 60 * 24 * 30 * 6,
-  ONE_YEAR_OR_LESS: 60 * 60 * 24 * 365,
-  MORE_THAN_ONE_YEAR: -1,
-} as const;
-
-export type FlagAge = keyof typeof flag_age_map;
 
 config();
 
@@ -58,37 +44,38 @@ async function run_action(): Promise<void> {
   });
 
   /* Categorize flags depending on how old they are */
-  const flag_map = new Map<FlagAge, TrimmedOptimizelyFlag[]>();
   active_flags.forEach(({ key, name, updated_time }) => {
     const last_modified = new Date(updated_time);
     const today = new Date();
     const time_difference = (today.getTime() - last_modified.getTime()) / 1000;
 
     let age_key: FlagAge = "MORE_THAN_ONE_YEAR";
-    if (time_difference <= flag_age_map.TWO_WEEKS_OR_LESS) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    if (time_difference <= flagAgeDetailsMap.TWO_WEEKS_OR_LESS?.time!) {
       age_key = "TWO_WEEKS_OR_LESS";
-    } else if (time_difference <= flag_age_map.ONE_MONTH_OR_LESS) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    } else if (time_difference <= flagAgeDetailsMap.ONE_MONTH_OR_LESS?.time!) {
       age_key = "ONE_MONTH_OR_LESS";
-    } else if (time_difference <= flag_age_map.THREE_MONTHS_OR_LESS) {
+    } else if (
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+      time_difference <= flagAgeDetailsMap.THREE_MONTHS_OR_LESS?.time!
+    ) {
       age_key = "THREE_MONTHS_OR_LESS";
-    } else if (time_difference <= flag_age_map.SIX_MONTHS_OR_LESS) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    } else if (time_difference <= flagAgeDetailsMap.SIX_MONTHS_OR_LESS?.time!) {
       age_key = "SIX_MONTHS_OR_LESS";
-    } else if (time_difference <= flag_age_map.ONE_YEAR_OR_LESS) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+    } else if (time_difference <= flagAgeDetailsMap.ONE_YEAR_OR_LESS?.time!) {
       age_key = "ONE_YEAR_OR_LESS";
     }
 
     const trimmed_flag = trimmedOptimizelyFlag.parse({ key, name });
-    if (flag_map.has(age_key)) {
-      flag_map.get(age_key)?.push(trimmed_flag);
-    } else {
-      flag_map.set(age_key, [trimmed_flag]);
-    }
+    flagAgeDetailsMap[age_key]?.flags.push(trimmed_flag);
   });
 
   /* Build the slack message from the above given map */
   const message = buildSlackMessage({
     project_id,
-    flags_by_age: flag_map,
   });
 
   /* Send the slack message */

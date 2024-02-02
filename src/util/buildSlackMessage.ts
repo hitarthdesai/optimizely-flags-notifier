@@ -1,10 +1,8 @@
 import { type KnownBlock } from "@slack/types";
-import { FlagAge } from "..";
-import { TrimmedOptimizelyFlag } from "../types";
+import { flagAgeDetailsMap } from "../constants";
 
 type BuildSlackMessageInput = {
   project_id: string;
-  flags_by_age: Map<FlagAge, TrimmedOptimizelyFlag[]>;
 };
 
 /**
@@ -15,28 +13,27 @@ type BuildSlackMessageInput = {
  */
 export function buildSlackMessage({
   project_id,
-  flags_by_age,
 }: BuildSlackMessageInput): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
-  flags_by_age.forEach((flags) => {
-    if (flags === undefined || flags.length === 0) {
+  Object.values(flagAgeDetailsMap).forEach((details) => {
+    if (details === undefined || details.flags.length === 0) {
       blocks.push({
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "No flags are this old 🎉",
+          text: "No flags are this old 👴",
         },
       });
       blocks.push({ type: "divider" });
     }
 
-    const flag_names = flags
+    const flag_names = details.flags
       .map(
         ({ key, name }) =>
           `<https://app.optimizely.com/v2/projects/${project_id}/flags/manage/${key}/rules/development|${name}>`
       )
-      .join(", ");
+      .join("\n");
 
     blocks.push({
       type: "section",
