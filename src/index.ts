@@ -50,7 +50,11 @@ async function run_action(): Promise<void> {
     if (end_date === undefined) return true;
 
     const today = new Date();
-    return today > new Date(end_date.default_value);
+    const parsed_end_date = new Date(
+      end_date.default_value.split(",").map(Number)
+    );
+
+    return today > parsed_end_date;
   });
 
   /* Categorize flags depending on how old they are */
