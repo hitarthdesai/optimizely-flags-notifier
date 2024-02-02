@@ -41,7 +41,7 @@ async function run_action(): Promise<void> {
     const is_permanent_variable = variable_definitions["is_permanent"];
     if (!is_permanent_variable) return true;
 
-    return is_permanent_variable.defaultValue !== "true";
+    return is_permanent_variable.default_value !== "true";
   });
 
   /* Remove flags that have a specified end date after todays date */
@@ -50,7 +50,7 @@ async function run_action(): Promise<void> {
     if (end_date === undefined) return true;
 
     const today = new Date();
-    return today > new Date(end_date.defaultValue);
+    return today > new Date(end_date.default_value);
   });
 
   /* Categorize flags depending on how old they are */
