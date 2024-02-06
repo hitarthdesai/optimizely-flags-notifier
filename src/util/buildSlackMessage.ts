@@ -63,5 +63,10 @@ export function buildSlackMessage(): KnownBlock[] {
     blocks.push({ type: "divider" });
   }
 
+  /* Remove the trailing divider */
+  if (blocks.at(-1)?.type === "divider") {
+    blocks.pop();
+  }
+
   return blocks;
 }
