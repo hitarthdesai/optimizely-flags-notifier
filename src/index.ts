@@ -1,26 +1,18 @@
-import { getInput } from "@actions/core";
 import { config } from "dotenv";
 import { flagAgeDetailsMap } from "./constants";
-import { FlagAge, requiredString, trimmedOptimizelyFlag } from "./types";
+import { FlagAge, trimmedOptimizelyFlag } from "./types";
 import { buildSlackMessage } from "./util/buildSlackMessage";
 import { getAllFlags } from "./util/getAllFlags";
+import { Inputs } from "./util/inputs";
 import { sendSlackMessage } from "./util/sendSlackMessage";
 
 config();
 
 async function run_action(): Promise<void> {
-  const project_id = requiredString.parse(
-    getInput("optimizely_project_id") || process.env.OPTIMIZELY_PROJECT_ID
-  );
-  const optimizely_auth_token = requiredString.parse(
-    getInput("optimizely_auth_token") || process.env.OPTIMIZELY_AUTH_TOKEN
-  );
+  Inputs.parseInputs();
 
   /* Get all the flags */
-  const flags = await getAllFlags({
-    project_id,
-    optimizely_auth_token,
-  });
+  const flags = await getAllFlags();
 
   /* Remove flags that have been marked with a is_permanent=true variable */
   const temporary_flags = flags.filter(({ variable_definitions }) => {
@@ -74,25 +66,10 @@ async function run_action(): Promise<void> {
   });
 
   /* Build the slack message from the above given map */
-  const message = buildSlackMessage({
-    project_id,
-  });
+  const message = buildSlackMessage();
 
   /* Send the slack message */
-  const slack_webhook_url = requiredString.parse(
-    getInput("slack_webhook_url") || process.env.SLACK_WEBHOOK_URL
-  );
-  const channel_id = requiredString.parse(
-    getInput("channel_id") || process.env.SLACK_CHANNEL_ID
-  );
-  const slack_app_bot_token = requiredString.parse(
-    getInput("slack_app_bot_token") || process.env.SLACK_APP_BOT_TOKEN
-  );
-
   await sendSlackMessage({
-    slack_webhook_url,
-    channel_id,
-    slack_app_bot_token,
     blocks: message,
   });
 }

@@ -1,19 +1,13 @@
 import { type KnownBlock } from "@slack/types";
 import { flagAgeDetailsMap } from "../constants";
-
-type BuildSlackMessageInput = {
-  project_id: string;
-};
+import { Inputs } from "./inputs";
 
 /**
  * Builds a Slack message from a list of flags grouped by age
  *
- * @param param0 Project Id and flags grouped by age
  * @returns Slack message as blocks
  */
-export function buildSlackMessage({
-  project_id,
-}: BuildSlackMessageInput): KnownBlock[] {
+export function buildSlackMessage(): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
   Object.values(flagAgeDetailsMap).forEach((details) => {
@@ -31,7 +25,7 @@ export function buildSlackMessage({
     const flag_names = details.flags
       .map(
         ({ key, name }) =>
-          `<https://app.optimizely.com/v2/projects/${project_id}/flags/manage/${key}/rules/development|${name}>`
+          `<https://app.optimizely.com/v2/projects/${Inputs.projectId}/flags/manage/${key}/rules/development|${name}>`
       )
       .join("\n");
 

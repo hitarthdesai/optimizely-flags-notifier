@@ -1,27 +1,20 @@
 import { KnownBlock } from "@slack/types";
+import { Inputs } from "./inputs";
 
 type SendSlackMessageInput = {
-  slack_webhook_url: string;
-  channel_id: string;
-  slack_app_bot_token: string;
   blocks: KnownBlock[];
 };
 
-export async function sendSlackMessage({
-  slack_webhook_url,
-  channel_id,
-  slack_app_bot_token,
-  blocks,
-}: SendSlackMessageInput) {
-  await fetch(slack_webhook_url, {
+export async function sendSlackMessage({ blocks }: SendSlackMessageInput) {
+  await fetch(Inputs.slackWebhookUrl, {
     method: "POST",
     body: JSON.stringify({
-      channel: channel_id,
+      channel: Inputs.channelId,
       blocks,
     }),
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${slack_app_bot_token}`,
+      authorization: `Bearer ${Inputs.slackAppBotToken}`,
     },
   });
 }
