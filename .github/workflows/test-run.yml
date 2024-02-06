@@ -1,0 +1,16 @@
+name: Test Optimizely Flags Notifier Action
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Action
+        uses: hitarthdesai/optimizely-flags-notifier@v0.1.0
+        with:
+          optimizely_project_id: ${{ secrets.OPTIMIZELY_PROJECT_ID }}
+          optimizely_auth_token: ${{ secrets.OPTIMIZELY_API_KEY }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          slack_app_bot_token: ${{ secrets.SLACK_USERNAME }}
+          channel_id: ${{ secrets.CHANNEL_ID }}

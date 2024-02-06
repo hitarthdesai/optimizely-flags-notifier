@@ -1,4 +1,4 @@
-# Publish Release Info (Action)
+# Optimizely Flags Notifier
 
 A GitHub Action that sends a report of Optimizely flags by how recently they have been updated as a message on Slack.
 
@@ -9,14 +9,14 @@ A GitHub Action that sends a report of Optimizely flags by how recently they hav
 To use this GitHub Action, you need to create a workflow file (e.g., `.github/workflows/optimizely.yml`) in your repository. Here's an example workflow that sends a message every Tuesday at 10:00 am:
 
 ```yaml
-name: Deploy to production
+name: Send Optimizely Flags Report to Slack
 
 on:
   schedule:
-    - cron: "0 10 * * 2
+    - cron: "0 10 * * 2"
 
 jobs:
-  release:
+  send-optimizely-report:
     runs-on: ubuntu-latest
 
     steps:
