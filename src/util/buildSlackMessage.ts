@@ -10,8 +10,23 @@ import { Inputs } from "./inputs";
 export function buildSlackMessage(): KnownBlock[] {
   const blocks: KnownBlock[] = [];
 
-  Object.values(flagAgeDetailsMap).forEach((details) => {
-    if (details === undefined || details.flags.length === 0) {
+  blocks.push({
+    type: "header",
+    text: {
+      type: "plain_text",
+      text: "Stale Flags Report 📝",
+    },
+  });
+
+  for (const details of Object.values(flagAgeDetailsMap)) {
+    if (details.flags.length === 0) {
+      blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*${details.label}*`,
+        },
+      });
       blocks.push({
         type: "section",
         text: {
@@ -20,6 +35,8 @@ export function buildSlackMessage(): KnownBlock[] {
         },
       });
       blocks.push({ type: "divider" });
+
+      continue;
     }
 
     const flag_names = details.flags
@@ -33,11 +50,18 @@ export function buildSlackMessage(): KnownBlock[] {
       type: "section",
       text: {
         type: "mrkdwn",
+        text: `*${details.label}*`,
+      },
+    });
+    blocks.push({
+      type: "section",
+      text: {
+        type: "mrkdwn",
         text: `${flag_names}\n`,
       },
     });
     blocks.push({ type: "divider" });
-  });
+  }
 
   return blocks;
 }
