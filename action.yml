@@ -15,7 +15,7 @@ inputs:
     description: The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.
     required: true
   slack_webhook_url:
-    description: The Slack Webhook URL to which the action will send a message with the report.
+    description: The Slack Web hook URL to which the action will send a message with the report.
     required: true
   channel_id:
     description: The Slack channel ID to which the action will send a message with the report.
