@@ -6,11 +6,11 @@ type SendSlackMessageInput = {
 };
 
 export async function sendSlackMessage({ blocks }: SendSlackMessageInput) {
-  await fetch(Inputs.slackWebhookUrl, {
+  await fetch("https://slack.com/api/chat.postMessage", {
     method: "POST",
     body: JSON.stringify({
-      channel: Inputs.channelId,
       blocks,
+      channel: Inputs.channelId,
     }),
     headers: {
       "content-type": "application/json",

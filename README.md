@@ -36,6 +36,5 @@ jobs:
 | ----------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
 | `optimizely_project_id` | yes      | ❌      | The Optimizely project ID for which the action should generate the report.                                          |
 | `optimizely_auth_token` | yes      | ❌      | The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.             |
-| `slack_webhook_url`     | yes      | ❌      | The Slack Web hook URL to which the action will send a message with the report.                                     |
 | `channel_id`            | yes      | ❌      | The Slack channel ID to which the action will send a message with the report.                                       |
 | `slack_app_bot_token`   | yes      | ❌      | The Slack app bot token for authentication. It is used to fetch the user name and profile picture of the bot.secret |

@@ -5,7 +5,6 @@ export class Inputs {
   static instance: Inputs;
   static projectId: string;
   static optimizelyAuthToken: string;
-  static slackWebhookUrl: string;
   static channelId: string;
   static slackAppBotToken: string;
 
@@ -16,9 +15,6 @@ export class Inputs {
     );
     Inputs.optimizelyAuthToken = requiredString.parse(
       getInput("optimizely_auth_token") || process.env.OPTIMIZELY_AUTH_TOKEN
-    );
-    Inputs.slackWebhookUrl = requiredString.parse(
-      getInput("slack_webhook_url") || process.env.SLACK_WEBHOOK_URL
     );
     Inputs.channelId = requiredString.parse(
       getInput("channel_id") || process.env.SLACK_CHANNEL_ID
