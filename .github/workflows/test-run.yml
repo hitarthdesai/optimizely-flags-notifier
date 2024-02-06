@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Action
-        uses: hitarthdesai/optimizely-flags-notifier@v0.2.1
+        uses: hitarthdesai/optimizely-flags-notifier@v0.2.2
         with:
           optimizely_project_id: ${{ secrets.OPTIMIZELY_PROJECT_ID }}
-          optimizely_auth_token: ${{ secrets.OPTIMIZELY_API_KEY }}
-          slack_app_bot_token: ${{ secrets.SLACK_USERNAME }}
-          channel_id: ${{ secrets.CHANNEL_ID }}
+          optimizely_auth_token: ${{ secrets.OPTIMIZELY_AUTH_TOKEN }}
+          slack_app_bot_token: ${{ secrets.SLACK_APP_BOT_TOKEN }}
+          slack_channel_id: ${{ secrets.SLACK_CHANNEL_ID }}

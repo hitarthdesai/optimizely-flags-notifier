@@ -25,8 +25,7 @@ jobs:
         with:
           optimizely_project_id: 1234567890
           optimizely_auth_token: demo-optimizely-token-for-auth
-          slack_webhook_url: https://hooks.slack.com/services/xyz/xyz
-          channel_id: CHANNEL123
+          slack_channel_id: CHANNEL123
           slack_app_bot_token: demo-slack-token-for-bot
 ```
 
@@ -36,5 +35,5 @@ jobs:
 | ----------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
 | `optimizely_project_id` | yes      | ❌      | The Optimizely project ID for which the action should generate the report.                                          |
 | `optimizely_auth_token` | yes      | ❌      | The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.             |
-| `channel_id`            | yes      | ❌      | The Slack channel ID to which the action will send a message with the report.                                       |
+| `slack_channel_id`      | yes      | ❌      | The Slack channel ID to which the action will send a message with the report.                                       |
 | `slack_app_bot_token`   | yes      | ❌      | The Slack app bot token for authentication. It is used to fetch the user name and profile picture of the bot.secret |

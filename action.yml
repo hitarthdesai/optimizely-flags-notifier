@@ -14,7 +14,7 @@ inputs:
   optimizely_auth_token:
     description: The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.
     required: true
-  channel_id:
+  slack_channel_id:
     description: The Slack channel ID to which the action will send a message with the report.
     required: true
   slack_app_bot_token:

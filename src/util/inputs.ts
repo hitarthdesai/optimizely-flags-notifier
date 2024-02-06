@@ -17,7 +17,7 @@ export class Inputs {
       getInput("optimizely_auth_token") || process.env.OPTIMIZELY_AUTH_TOKEN
     );
     Inputs.channelId = requiredString.parse(
-      getInput("channel_id") || process.env.SLACK_CHANNEL_ID
+      getInput("slack_channel_id") || process.env.SLACK_CHANNEL_ID
     );
     Inputs.slackAppBotToken = requiredString.parse(
       getInput("slack_app_bot_token") || process.env.SLACK_APP_BOT_TOKEN
