@@ -1,4 +1,5 @@
 import { KnownBlock } from "@slack/types";
+import fetch from "node-fetch";
 import { Inputs } from "./inputs";
 
 type SendSlackMessageInput = {
