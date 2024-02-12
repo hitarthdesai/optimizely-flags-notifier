@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import { OptimizelyFlag, optimizelyFlags } from "../types";
 import { Inputs } from "./inputs";
 
@@ -19,7 +20,9 @@ export async function getAllFlags(): Promise<OptimizelyFlag[]> {
         },
       }
     );
-    return optimizelyFlags.parse((await res.json()).items);
+    return optimizelyFlags.parse(
+      ((await res.json()) as { items: unknown }).items
+    );
   } catch (e) {
     /* eslint-disable-next-line no-console */
     console.error(e);
