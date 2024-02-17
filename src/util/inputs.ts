@@ -2,7 +2,7 @@ import { getInput } from "@actions/core";
 import { requiredString } from "../types";
 
 export class Inputs {
-  static instance: Inputs;
+  static instance: Inputs | undefined;
   static projectId: string;
   static optimizelyAuthToken: string;
   static channelId: string;
@@ -28,5 +28,13 @@ export class Inputs {
     if (!this.instance) {
       new Inputs();
     }
+  }
+
+  /**
+   * Resets the instance of Inputs
+   * This is only used for unit tests
+   */
+  static _resetInstance() {
+    this.instance = undefined;
   }
 }
