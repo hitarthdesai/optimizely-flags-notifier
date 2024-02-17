@@ -3,8 +3,8 @@ import { filterOutPermanentFlags } from "../filterOutPermanentFlags";
 
 const mockPermanentFlag: OptimizelyFlag[] = [
   {
-    name: "flag2",
-    key: "flag2",
+    name: "flag1",
+    key: "flag1",
     updated_time: new Date().toString(),
     variable_definitions: {
       is_permanent: { default_value: "true" },
@@ -14,8 +14,8 @@ const mockPermanentFlag: OptimizelyFlag[] = [
 
 const mockNonPermanentFlag: OptimizelyFlag[] = [
   {
-    name: "flag3",
-    key: "flag3",
+    name: "flag2",
+    key: "flag2",
     updated_time: new Date().toString(),
     variable_definitions: {
       is_permanent: { default_value: "false" },
@@ -25,14 +25,20 @@ const mockNonPermanentFlag: OptimizelyFlag[] = [
 
 const mockFlagWithoutPermanentVariable: OptimizelyFlag[] = [
   {
-    name: "flag1",
-    key: "flag1",
+    name: "flag3",
+    key: "flag3",
     updated_time: new Date().toString(),
     variable_definitions: {},
   },
 ];
 
 describe("filterOutPermanentFlags.ts", () => {
+  it("should return an empty array if no flags are provided", () => {
+    const filteredFlags = filterOutPermanentFlags([]);
+
+    expect(filteredFlags).toHaveLength(0);
+  });
+
   it("should remove flag with permanent value set to true", () => {
     const filteredFlags = filterOutPermanentFlags(mockPermanentFlag);
 
@@ -51,11 +57,5 @@ describe("filterOutPermanentFlags.ts", () => {
     );
 
     expect(filteredFlags).toHaveLength(1);
-  });
-
-  it("should return an empty array if no flags are provided", () => {
-    const filteredFlags = filterOutPermanentFlags([]);
-
-    expect(filteredFlags).toEqual([]);
   });
 });
