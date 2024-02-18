@@ -1,7 +1,7 @@
-import { getAllFlags } from "../getAllFlags";
-
 const mockFetch = jest.fn();
 jest.mock("node-fetch", () => mockFetch);
+
+import { getAllFlags } from "../getAllFlags";
 
 jest.mock("../inputs", () => ({
   Inputs: {
@@ -10,7 +10,7 @@ jest.mock("../inputs", () => ({
   },
 }));
 
-describe("getAllFlags", () => {
+describe("getAllFlags.ts", () => {
   it("should fetch and parse flags correctly", async () => {
     await getAllFlags();
 
