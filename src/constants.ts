@@ -31,4 +31,4 @@ export const flagAgeDetailsMap: FlagAgeDetailsMap = {
     label: "🚨 More Than a Year",
     flags: [],
   },
-};
+} as const;
