@@ -3,11 +3,11 @@ name: Test Optimizely Flags Notifier Action
 on: workflow_dispatch
 
 jobs:
-  build:
+  run-main:
     runs-on: ubuntu-latest
     steps:
       - name: Run Action
-        uses: hitarthdesai/optimizely-flags-notifier@v0.2.3
+        uses: hitarthdesai/optimizely-flags-notifier@main
         with:
           optimizely_project_id: ${{ secrets.OPTIMIZELY_PROJECT_ID }}
           optimizely_auth_token: ${{ secrets.OPTIMIZELY_AUTH_TOKEN }}
