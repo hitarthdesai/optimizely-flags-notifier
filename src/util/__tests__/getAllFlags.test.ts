@@ -1,7 +1,7 @@
+import { getAllFlags } from "../getAllFlags";
+
 const mockFetch = jest.fn();
 jest.mock("node-fetch", () => mockFetch);
-
-import { getAllFlags } from "../getAllFlags";
 
 jest.mock("../inputs", () => ({
   Inputs: {

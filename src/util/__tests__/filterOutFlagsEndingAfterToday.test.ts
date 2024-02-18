@@ -47,7 +47,7 @@ const mockFlagWithoutEndDate: OptimizelyFlag[] = [
   },
 ];
 
-describe("filterOutFlagsEndingAfterToday", () => {
+describe("filterOutFlagsEndingAfterToday.ts", () => {
   it("should return an empty array if no flags are provided", () => {
     const filteredFlags = filterOutFlagsEndingAfterToday([]);
 
