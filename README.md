@@ -2,6 +2,8 @@
 
 A GitHub Action that sends a report of Optimizely flags by how recently they have been updated as a message on Slack.
 
+![Preview of how the slack message looks](./.github/docs/slack_message_template.png)
+
 ## Usage
 
 ### Create Workflow
@@ -31,12 +33,14 @@ jobs:
 
 #### Inputs
 
-| Name                    | Required | Default | Description                                                                                                         |
-| ----------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
-| `optimizely_project_id` | yes      | ❌      | The Optimizely project ID for which the action should generate the report.                                          |
-| `optimizely_auth_token` | yes      | ❌      | The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.             |
-| `slack_channel_id`      | yes      | ❌      | The Slack channel ID to which the action will send a message with the report.                                       |
-| `slack_app_bot_token`   | yes      | ❌      | The Slack app bot token for authentication. It is used to fetch the user name and profile picture of the bot.secret |
+| Name                           | Required | Default        | Description                                                                                                              |
+| ------------------------------ | -------- | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `optimizely_project_id`        | yes      | N/A            | The Optimizely project ID for which the action should generate the report.                                               |
+| `optimizely_auth_token`        | yes      | N/A            | The Optimizely API token for authentication. It is used to fetch the flags and their last updated time.                  |
+| `slack_channel_id`             | yes      | N/A            | The Slack channel ID to which the action will send a message with the report.                                            |
+| `slack_app_bot_token`          | yes      | N/A            | The Slack app bot token for authentication. It is used to fetch the user name and profile picture of the bot.secret      |
+| `permanent_flag_variable_name` | no       | `is_permanent` | Name of the optimizely variable that indicates if a particular flag is permanent or not.                                 |
+| `flag_end_date_variable_name`  | no       | `end_date`     | Name of the optimizely variable that indicates the date after which an Optimizely flag should be included in the report. |
 
 ## How to control which feature flags I am notified about?
 
