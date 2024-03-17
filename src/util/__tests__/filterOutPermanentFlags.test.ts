@@ -1,5 +1,6 @@
 import { OptimizelyFlag } from "../../types";
 import { filterOutPermanentFlags } from "../filterOutPermanentFlags";
+import { Inputs } from "../inputs";
 
 const mockPermanentFlag: OptimizelyFlag[] = [
   {
@@ -33,6 +34,10 @@ const mockFlagWithoutPermanentVariable: OptimizelyFlag[] = [
 ];
 
 describe("filterOutPermanentFlags.ts", () => {
+  beforeEach(() => {
+    Inputs.permanentFlagVariableName = "is_permanent";
+  });
+
   it("should return an empty array if no flags are provided", () => {
     const filteredFlags = filterOutPermanentFlags([]);
 

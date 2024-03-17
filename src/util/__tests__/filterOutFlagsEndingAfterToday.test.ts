@@ -1,5 +1,6 @@
 import { OptimizelyFlag } from "../../types";
 import { filterOutFlagsEndingAfterToday } from "../filterOutFlagsEndingAfterToday";
+import { Inputs } from "../inputs";
 
 const dateToOptimizelyString = (date: Date) =>
   date
@@ -48,6 +49,10 @@ const mockFlagWithoutEndDate: OptimizelyFlag[] = [
 ];
 
 describe("filterOutFlagsEndingAfterToday.ts", () => {
+  beforeEach(() => {
+    Inputs.flagEndDateVariableName = "end_date";
+  });
+
   it("should return an empty array if no flags are provided", () => {
     const filteredFlags = filterOutFlagsEndingAfterToday([]);
 

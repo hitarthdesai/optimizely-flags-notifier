@@ -20,6 +20,15 @@ inputs:
   slack_app_bot_token:
     description: The Slack app bot token for authentication. It is used to fetch the user name and profile picture of the bot.
     required: true
+  permanent_flag_variable_name:
+    description: The name of the Optimizely variable you use to mark a flag as permanent. The action will ignore this flag while generating the report.
+    required: false
+    default: "is_permanent"
+  flag_end_date_variable_name:
+    description: The name of the Optimizely variable you use to denote a flag's ending date. The action will ignore this flag while generating the report.
+    required: false
+    default: "end_date"
+  
 
 runs:
   using: node16
