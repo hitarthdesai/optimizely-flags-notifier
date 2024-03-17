@@ -2,6 +2,8 @@
 
 A GitHub Action that sends a report of Optimizely flags by how recently they have been updated as a message on Slack.
 
+![Preview of how the slack message looks](./.github/docs/slack_message_template.png)
+
 ## Usage
 
 ### Create Workflow
