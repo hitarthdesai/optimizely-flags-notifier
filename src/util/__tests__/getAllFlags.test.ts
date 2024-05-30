@@ -15,7 +15,7 @@ describe("getAllFlags.ts", () => {
     await getAllFlags();
 
     expect(mockFetch).toHaveBeenCalledWith(
-      "https://api.optimizely.com/flags/v1/projects/my-project-id/flags?per_page=100",
+      "https://api.optimizely.com/flags/v1/projects/my-project-id/flags?per_page=100&archived=false",
       {
         method: "GET",
         headers: {
