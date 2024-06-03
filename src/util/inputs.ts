@@ -33,9 +33,9 @@ export class Inputs {
   }
 
   static parseInputs() {
-    if (!this.instance) {
-      new Inputs();
-    }
+    if (this.instance) return;
+
+    new Inputs();
   }
 
   /**

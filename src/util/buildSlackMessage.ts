@@ -17,6 +17,13 @@ export function buildSlackMessage(): KnownBlock[] {
       text: "Stale Flags Report 📝",
     },
   });
+  blocks.push({
+    type: "section",
+    text: {
+      type: "mrkdwn",
+      text: `*🗓️ Present*`,
+    },
+  });
 
   for (const details of Object.values(flagAgeDetailsMap)) {
     if (details.flags.length === 0) {
@@ -24,17 +31,16 @@ export function buildSlackMessage(): KnownBlock[] {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: `*${details.label}*`,
+          text: "No flags in this range",
         },
       });
       blocks.push({
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "No flags are this old 👴",
+          text: `*${details.label}*`,
         },
       });
-      blocks.push({ type: "divider" });
 
       continue;
     }
@@ -50,21 +56,19 @@ export function buildSlackMessage(): KnownBlock[] {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `*${details.label}*`,
+        text: `${flag_names}\n`,
       },
     });
     blocks.push({
       type: "section",
       text: {
         type: "mrkdwn",
-        text: `${flag_names}\n`,
+        text: `*${details.label}*`,
       },
     });
-    blocks.push({ type: "divider" });
   }
 
-  /* Remove the trailing divider */
-  blocks.pop();
+  blocks.push({ type: "divider" });
 
   return blocks;
 }

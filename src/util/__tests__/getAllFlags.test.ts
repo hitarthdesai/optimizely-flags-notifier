@@ -2,13 +2,10 @@ const mockFetch = jest.fn();
 jest.mock("node-fetch", () => mockFetch);
 
 import { getAllFlags } from "../getAllFlags";
+import { Inputs } from "../inputs";
 
-jest.mock("../inputs", () => ({
-  Inputs: {
-    projectId: "my-project-id",
-    optimizelyAuthToken: "my-auth-token",
-  },
-}));
+Inputs.projectId = "my-project-id";
+Inputs.optimizelyAuthToken = "my-auth-token";
 
 describe("getAllFlags.ts", () => {
   it("should fetch and parse flags correctly", async () => {
