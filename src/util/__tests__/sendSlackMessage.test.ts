@@ -1,17 +1,11 @@
 const mockFetch = jest.fn();
 jest.mock("node-fetch", () => mockFetch);
 
-import { KnownBlock } from "@slack/types";
+import { type KnownBlock } from "@slack/types";
+import { Inputs } from "../inputs";
 import { sendSlackMessage } from "../sendSlackMessage";
 
-jest.mock("../inputs", () => ({
-  Inputs: {
-    channelId: "my-channel-id",
-    slackAppBotToken: "my-slack-token",
-  },
-}));
-
-const mockBlocks: KnownBlock[] = [
+export const mockBlocks: KnownBlock[] = [
   {
     text: {
       text: "Stale Flags Report 📝",
@@ -21,7 +15,7 @@ const mockBlocks: KnownBlock[] = [
   },
   {
     text: {
-      text: "*⚪️ Two Weeks or Less*",
+      text: "*🗓️ Present*",
       type: "mrkdwn",
     },
     type: "section",
@@ -34,91 +28,89 @@ const mockBlocks: KnownBlock[] = [
     type: "section",
   },
   {
+    text: {
+      text: "*⚪️ Two Weeks*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "No flags in this range",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "*🟢 One Month*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "No flags in this range",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "*🟡 Three Months*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "No flags in this range",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "*🟠 Six Months*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "No flags in this range",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "*🔴 One Year*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "No flags in this range",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
+    text: {
+      text: "*🦖 Jurassic Age*",
+      type: "mrkdwn",
+    },
+    type: "section",
+  },
+  {
     type: "divider",
-  },
-  {
-    text: {
-      text: "*🟢 One Month or Less*",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    text: {
-      text: "No flags are this old 👴",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    type: "divider",
-  },
-  {
-    text: {
-      text: "*🟡 Three Months or Less*",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    text: {
-      text: "No flags are this old 👴",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    type: "divider",
-  },
-  {
-    text: {
-      text: "*🟠 Six Months or Less*",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    text: {
-      text: "No flags are this old 👴",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    type: "divider",
-  },
-  {
-    text: {
-      text: "*🔴 One Year or Less*",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    text: {
-      text: "No flags are this old 👴",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    type: "divider",
-  },
-  {
-    text: {
-      text: "*🚨 More Than a Year*",
-      type: "mrkdwn",
-    },
-    type: "section",
-  },
-  {
-    text: {
-      text: "No flags are this old 👴",
-      type: "mrkdwn",
-    },
-    type: "section",
   },
 ];
+
+Inputs.channelId = "my-channel-id";
+Inputs.slackAppBotToken = "my-slack-token";
 
 describe("sendSlackMessage.ts", () => {
   it("should fetch and parse flags correctly", async () => {
